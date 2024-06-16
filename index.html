@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pin Generator</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="container">
         <div class="row">
@@ -22,113 +25,126 @@
                     <div class="numbers">
                         <div class="calc-body">
                             <div class="calc-button-row">
-                              <div class="button" id="btn7">7</div>
-                              <div class="button" id="btn8">8</div>
-                              <div class="button" id="btn9">9</div>
+                                <div class="button" id="btn7">7</div>
+                                <div class="button" id="btn8">8</div>
+                                <div class="button" id="btn9">9</div>
                             </div>
                             <div class="calc-button-row">
-                              <div class="button" id="btn4">4</div>
-                              <div class="button" id="btn5">5</div>
-                              <div class="button" id="btn6">6</div>
+                                <div class="button" id="btn4">4</div>
+                                <div class="button" id="btn5">5</div>
+                                <div class="button" id="btn6">6</div>
                             </div>
                             <div class="calc-button-row">
-                              <div class="button" id="btn1">1</div>
-                              <div class="button" id="btn2">2</div>
-                              <div class="button" id="btn3">3</div>
+                                <div class="button" id="btn1">1</div>
+                                <div class="button" id="btn2">2</div>
+                                <div class="button" id="btn3">3</div>
                             </div>
                             <div class="calc-button-row">
-                                <div class="button"  id="btn-dlt">&lt;</div>
+                                <div class="button" id="btn-dlt">&lt;</div>
                                 <div class="button" id="btn0">0</div>
-                                <div class="button"  id="btn-clr">C</div>
+                                <div class="button" id="btn-clr">C</div>
                             </div>
                             <div>
                                 <button type="submit" class="submit-btn" id="btn-submit">Submit</button>
                                 <p class="action-left" id="action-left"> <span id="left-tries">3</span> try left</p>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="notify-section">
+                <p class="notify" id="no-match">❌ Pin Didn't Match, Please try again</p>
+                <p class="notify" id="matched">✅ Pin Matched... Secret door is opening for you</p>
+            </div>
         </div>
-        <div class="notify-section">
-            <p class="notify" id="no-match">❌ Pin Didn't Match, Please try again</p>
-            <p class="notify" id="matched">✅ Pin Matched... Secret door is opening for you</p>
-        </div>
-    </div>
 
-    <script>
-        //random pin generation
-        document.getElementById('generate-button').addEventListener('click',function(){
-            const temp=Math.floor((Math.random()*8999+1000))+'';
-            document.getElementById('display-pin').value=temp;
-        })
+        <script>
+            //random pin generation
+            document.getElementById('generate-button').addEventListener('click', function () {
+                const temp = Math.floor((Math.random() * 8999 + 1000)) + '';
+                document.getElementById('display-pin').value = temp;
+            })
 
-        //all button actions
-        function btnaction(text){
-            const prevpin=document.getElementById('new-pin').value;
-            const newnumber=document.getElementById(text).innerText;
-            const newpin=prevpin+newnumber;
-            document.getElementById('new-pin').value=newpin;
-        }
-        document.getElementById('btn1').addEventListener('click',function(){
-            btnaction('btn1');
-        }) ;
-        document.getElementById('btn2').addEventListener('click',function(){
-            btnaction('btn2');
-        }) ;
-        document.getElementById('btn3').addEventListener('click',function(){
-            btnaction('btn3');
-        }) ;
-        document.getElementById('btn4').addEventListener('click',function(){
-            btnaction('btn4');
-        }) ;
-        document.getElementById('btn5').addEventListener('click',function(){
-            btnaction('btn5');
-        }) ;
-        document.getElementById('btn6').addEventListener('click',function(){
-            btnaction('btn6');
-        }) ;
-        document.getElementById('btn7').addEventListener('click',function(){
-            btnaction('btn7');
-        }) ;
-        document.getElementById('btn8').addEventListener('click',function(){
-            btnaction('btn8');
-        }) ;
-        document.getElementById('btn9').addEventListener('click',function(){
-            btnaction('btn9');
-        }) ;
-        document.getElementById('btn0').addEventListener('click',function(){
-            btnaction('btn0');
-        }) ;
-        document.getElementById('btn-clr').addEventListener('click',function(){
-            document.getElementById('new-pin').value='';
-        }) ;
-        document.getElementById('btn-dlt').addEventListener('click',function(){
-            const prevpin=document.getElementById('new-pin').value;
-            const newpin=prevpin.substring(0, prevpin.length - 1);
-            document.getElementById('new-pin').value=newpin;
-        }) ;
-
-        //submit actions
-        document.getElementById('btn-submit').addEventListener('click',function(){
-            const lefttries=parseFloat(document.getElementById('left-tries').innerText);
-            if(lefttries==0){
-                alert('Limit exceed. Please try later.');
-            }else{
-                const generatedpin=document.getElementById('display-pin').value+'';
-                const userpin=document.getElementById('new-pin').value+'';
-                if(generatedpin==userpin){
-
-                    document.getElementById('action-left').style.display='none';
-                    document.getElementById('matched').style.display='block';
-                    document.getElementById('no-match').style.display='none';
-                }else{
-                    document.getElementById('left-tries').innerText=lefttries-1;
-                    document.getElementById('action-left').style.display='block';
-                    document.getElementById('matched').style.display='none';
-                    document.getElementById('no-match').style.display='block';
-                }
+            //all button actions
+            function btnaction(text) {
+                const prevpin = document.getElementById('new-pin').value;
+                const newnumber = document.getElementById(text).innerText;
+                const newpin = prevpin + newnumber;
+                document.getElementById('new-pin').value = newpin;
             }
-        })
-    </script>
+            document.getElementById('btn1').addEventListener('click', function () {
+                btnaction('btn1');
+            });
+            document.getElementById('btn2').addEventListener('click', function () {
+                btnaction('btn2');
+            });
+            document.getElementById('btn3').addEventListener('click', function () {
+                btnaction('btn3');
+            });
+            document.getElementById('btn4').addEventListener('click', function () {
+                btnaction('btn4');
+            });
+            document.getElementById('btn5').addEventListener('click', function () {
+                btnaction('btn5');
+            });
+            document.getElementById('btn6').addEventListener('click', function () {
+                btnaction('btn6');
+            });
+            document.getElementById('btn7').addEventListener('click', function () {
+                btnaction('btn7');
+            });
+            document.getElementById('btn8').addEventListener('click', function () {
+                btnaction('btn8');
+            });
+            document.getElementById('btn9').addEventListener('click', function () {
+                btnaction('btn9');
+            });
+            document.getElementById('btn0').addEventListener('click', function () {
+                btnaction('btn0');
+            });
+            document.getElementById('btn-clr').addEventListener('click', function () {
+                document.getElementById('new-pin').value = '';
+            });
+            document.getElementById('btn-dlt').addEventListener('click', function () {
+                const prevpin = document.getElementById('new-pin').value;
+                const newpin = prevpin.substring(0, prevpin.length - 1);
+                document.getElementById('new-pin').value = newpin;
+            });
+
+            //submit actions
+            document.getElementById('btn-submit').addEventListener('click', function () {
+                const generatedpin = document.getElementById('display-pin').value + '';
+                const userpin = document.getElementById('new-pin').value + '';
+                const lefttries = parseFloat(document.getElementById('left-tries').innerText);
+                if (lefttries == 0) {
+                    alert('Limit exceed. Please try later.');
+                } else {
+                    const userPinLength = userpin.length;
+                    const generatedPinLength = generatedpin.length;
+                    if (userPinLength == 4 && generatedPinLength == 4) {
+
+                        if (generatedpin == userpin) {
+
+                            document.getElementById('action-left').style.display = 'none';
+                            document.getElementById('matched').style.display = 'block';
+                            document.getElementById('no-match').style.display = 'none';
+                            window.open("https://play2048.co/", "_blank");
+                        } else {
+                            document.getElementById('left-tries').innerText = lefttries - 1;
+                            document.getElementById('action-left').style.display = 'block';
+                            document.getElementById('matched').style.display = 'none';
+                            document.getElementById('no-match').style.display = 'block';
+                        }
+                    } else if (userPinLength != 4 && generatedPinLength == 4) {
+                        alert('Pin should be 4 digits!');
+                    } else if (userPinLength == 4 && generatedPinLength != 4) {
+                        alert('Generate a pin first!');
+                    } else {
+                        alert('you are a dumbass!');
+                    }
+                }
+            })
+        </script>
 </body>
+
 </html>
