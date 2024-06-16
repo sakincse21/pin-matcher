@@ -18,31 +18,31 @@
             </div>
             <div class="col-md-6">
                 <div class="input-section half-width">
-                    <input class="form-control" type="text">
+                    <input class="form-control" id="new-pin" type="text" value="">
                     <div class="numbers">
                         <div class="calc-body">
                             <div class="calc-button-row">
-                              <div class="button">7</div>
-                              <div class="button">8</div>
-                              <div class="button">9</div>
+                              <div class="button" id="btn7">7</div>
+                              <div class="button" id="btn8">8</div>
+                              <div class="button" id="btn9">9</div>
                             </div>
                             <div class="calc-button-row">
-                              <div class="button">4</div>
-                              <div class="button">5</div>
-                              <div class="button">6</div>
+                              <div class="button" id="btn4">4</div>
+                              <div class="button" id="btn5">5</div>
+                              <div class="button" id="btn6">6</div>
                             </div>
                             <div class="calc-button-row">
-                              <div class="button">1</div>
-                              <div class="button">2</div>
-                              <div class="button">3</div>
+                              <div class="button" id="btn1">1</div>
+                              <div class="button" id="btn2">2</div>
+                              <div class="button" id="btn3">3</div>
                             </div>
                             <div class="calc-button-row">
-                                <div class="button">&lt;</div>
-                                <div class="button">0</div>
-                                <div class="button">C</div>
+                                <div class="button"  id="btn-dlt">&lt;</div>
+                                <div class="button" id="btn0">0</div>
+                                <div class="button"  id="btn-clr">C</div>
                             </div>
                             <div>
-                                <button type="submit" class="submit-btn">Submit</button>
+                                <button type="submit" class="submit-btn" id="btn-submit">Submit</button>
                                 <p class="action-left">3 try left</p>
                             </div>
                     </div>
@@ -60,6 +60,51 @@
             const temp=Math.floor((Math.random()*8999+1000))+'';
             document.getElementById('display-pin').value=temp;
         })
+
+        function btnaction(text){
+            const prevpin=document.getElementById('new-pin').value;
+            const newnumber=document.getElementById(text).innerText;
+            const newpin=prevpin+newnumber;
+            document.getElementById('new-pin').value=newpin;
+        }
+        document.getElementById('btn1').addEventListener('click',function(){
+            btnaction('btn1');
+        }) ;
+        document.getElementById('btn2').addEventListener('click',function(){
+            btnaction('btn2');
+        }) ;
+        document.getElementById('btn3').addEventListener('click',function(){
+            btnaction('btn3');
+        }) ;
+        document.getElementById('btn4').addEventListener('click',function(){
+            btnaction('btn4');
+        }) ;
+        document.getElementById('btn5').addEventListener('click',function(){
+            btnaction('btn5');
+        }) ;
+        document.getElementById('btn6').addEventListener('click',function(){
+            btnaction('btn6');
+        }) ;
+        document.getElementById('btn7').addEventListener('click',function(){
+            btnaction('btn7');
+        }) ;
+        document.getElementById('btn8').addEventListener('click',function(){
+            btnaction('btn8');
+        }) ;
+        document.getElementById('btn9').addEventListener('click',function(){
+            btnaction('btn9');
+        }) ;
+        document.getElementById('btn0').addEventListener('click',function(){
+            btnaction('btn0');
+        }) ;
+        document.getElementById('btn-clr').addEventListener('click',function(){
+            document.getElementById('new-pin').value='';
+        }) ;
+        document.getElementById('btn-dlt').addEventListener('click',function(){
+            const prevpin=document.getElementById('new-pin').value;
+            const newpin=prevpin.substring(0, prevpin.length - 1);
+            document.getElementById('new-pin').value=newpin;
+        }) ;
     </script>
 </body>
 </html>
